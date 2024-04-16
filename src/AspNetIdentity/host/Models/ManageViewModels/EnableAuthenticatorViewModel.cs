@@ -10,7 +10,7 @@
  copies or substantial portions of the Software.
 */
 
-namespace IdentityServer8.Models.ManageViewModels;
+namespace IdentityServer4.Models.ManageViewModels;
 
 public class EnableAuthenticatorViewModel
 {

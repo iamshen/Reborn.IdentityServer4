@@ -10,9 +10,9 @@
  copies or substantial portions of the Software.
 */
 
-using IdentityServer8.EntityFramework.Entities;
+using IdentityServer4.EntityFramework.Entities;
 
-namespace IdentityServer8.EntityFramework.Mappers
+namespace IdentityServer4.EntityFramework.Mappers
 {
     /// <summary>
     /// Extension methods to map to/from entity/model for identity resources.

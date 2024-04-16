@@ -10,9 +10,9 @@
  copies or substantial portions of the Software.
 */
 
-using IdentityServer8.EntityFramework.Entities;
+using IdentityServer4.EntityFramework.Entities;
 
-namespace IdentityServer8.EntityFramework.Extensions
+namespace IdentityServer4.EntityFramework.Extensions
 {
     /// <summary>
     /// Extension methods to define the database schema for the configuration and operational data stores.

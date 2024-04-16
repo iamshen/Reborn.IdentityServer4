@@ -10,7 +10,7 @@
  copies or substantial portions of the Software.
 */
 
-Console.Title = "IdentityServer8";
+Console.Title = "IdentityServer4";
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, configuration) =>
@@ -58,7 +58,7 @@ services.AddIdentityServer()
              options.KeyRetirement = options.KeyActivationDelay * 3;
 
              // You can get your own license from:
-             // https://www.identityserver8.com/products/KeyManagement
+             // https://www.IdentityServer4.com/products/KeyManagement
              options.Licensee = "your licensee";
              options.License = "your license key";
          })

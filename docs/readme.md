@@ -1,9 +1,9 @@
-# IdentityServer8 documentation
+# IdentityServer4 documentation
 
-The folder contains the documentation for IdentityServer8.
+The folder contains the documentation for IdentityServer4.
 
 We are using [Read the docs](https://readthedocs.org/) to host the documentation and the rendered version
-can be found [here](https://IdentityServer8.readthedocs.io).
+can be found [here](https://IdentityServer4.readthedocs.io).
 
 Doc pages are authored in ReStructuredText (RST) - you can find a primer [here](http://www.sphinx-doc.org/en/stable/rest.html).
 

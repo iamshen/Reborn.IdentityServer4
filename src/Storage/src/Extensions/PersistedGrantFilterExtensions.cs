@@ -10,7 +10,7 @@
  copies or substantial portions of the Software.
 */
 
-namespace IdentityServer8.Extensions;
+namespace IdentityServer4.Extensions;
 
 /// <summary>
 /// Extensions for PersistedGrantFilter.

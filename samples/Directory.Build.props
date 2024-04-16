@@ -6,7 +6,7 @@
 	 <Import Project="../Directory.Build.props" />
   </ImportGroup>
   <ItemGroup>  
-	<None Remove="$(SolutionDir)../icon.jpg"/>
+	<None Remove="$(SolutionDir)../icon.png"/>
 	<None Remove="$(SolutionDir)../LICENSE" />
 	<None Remove="$(SolutionDir)../README.md" />
   </ItemGroup>
@@ -14,10 +14,10 @@
 	<SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="HigginsSoft.IdentityServer8" Version="$(IdentityServerVersion)" />
-	<PackageVersion Include="HigginsSoft.IdentityServer8.Security" Version="$(IdentityServerVersion)" />
-	<PackageVersion Include="HigginsSoft.IdentityServer8.AspNetIdentity" Version="$(IdentityServerVersion)" />
-    <PackageVersion Include="HigginsSoft.IdentityServer8.EntityFramework" Version="$(IdentityServerVersion)" />
+    <PackageVersion Include="Reborn.IdentityServer4" Version="$(IdentityServerVersion)" />
+	<PackageVersion Include="Reborn.IdentityServer4.Security" Version="$(IdentityServerVersion)" />
+	<PackageVersion Include="Reborn.IdentityServer4.AspNetIdentity" Version="$(IdentityServerVersion)" />
+    <PackageVersion Include="Reborn.IdentityServer4.EntityFramework" Version="$(IdentityServerVersion)" />
   </ItemGroup> 
   <ItemGroup>
     <PackageReference Include="IdentityModel.OidcClient" />

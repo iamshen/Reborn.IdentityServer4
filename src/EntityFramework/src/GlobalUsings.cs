@@ -10,15 +10,15 @@
  copies or substantial portions of the Software.
 */
 
-global using IdentityServer8.EntityFramework;
-global using IdentityServer8.EntityFramework.DbContexts;
-global using IdentityServer8.EntityFramework.Interfaces;
-global using IdentityServer8.EntityFramework.Options;
-global using IdentityServer8.EntityFramework.Services;
-global using IdentityServer8.EntityFramework.Storage;
-global using IdentityServer8.EntityFramework.Stores;
-global using IdentityServer8.Services;
-global using IdentityServer8.Stores;
+global using IdentityServer4.EntityFramework;
+global using IdentityServer4.EntityFramework.DbContexts;
+global using IdentityServer4.EntityFramework.Interfaces;
+global using IdentityServer4.EntityFramework.Options;
+global using IdentityServer4.EntityFramework.Services;
+global using IdentityServer4.EntityFramework.Storage;
+global using IdentityServer4.EntityFramework.Stores;
+global using IdentityServer4.Services;
+global using IdentityServer4.Stores;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;

@@ -11,15 +11,15 @@
 */
 
 using IdentityModel;
-using IdentityServer8.EntityFramework.DbContexts;
-using IdentityServer8.EntityFramework.Mappers;
-using IdentityServer8.EntityFramework.Options;
-using IdentityServer8.EntityFramework.Stores;
-using IdentityServer8.Models;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
+using IdentityServer4.EntityFramework.Options;
+using IdentityServer4.EntityFramework.Stores;
+using IdentityServer4.Models;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace IdentityServer8.EntityFramework.IntegrationTests.Stores;
+namespace IdentityServer4.EntityFramework.IntegrationTests.Stores;
 
 public class ScopeStoreTests : IntegrationTest<ScopeStoreTests, ConfigurationDbContext, ConfigurationStoreOptions>
 {

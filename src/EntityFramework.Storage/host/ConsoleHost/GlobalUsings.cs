@@ -10,8 +10,8 @@
  copies or substantial portions of the Software.
 */
 
-global using IdentityServer8.EntityFramework;
-global using IdentityServer8.EntityFramework.Storage;
+global using IdentityServer4.EntityFramework;
+global using IdentityServer4.EntityFramework.Storage;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;

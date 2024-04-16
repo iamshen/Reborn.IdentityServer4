@@ -10,9 +10,9 @@
  copies or substantial portions of the Software.
 */
 
-using IdentityServer8;
-using IdentityServer8.EntityFramework.DbContexts;
-using IdentityServer8.EntityFramework.Mappers;
+using IdentityServer4;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
 using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +32,7 @@ namespace IdentityServer
             services.AddControllersWithViews();
 
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-            const string connectionString = @"Data Source=(LocalDb)\MSSQLLocalDB;database=IdentityServer8.Quickstart.EntityFramework-4.0.0;trusted_connection=yes;";
+            const string connectionString = @"Data Source=(LocalDb)\MSSQLLocalDB;database=IdentityServer4.Quickstart.EntityFramework-4.0.0;trusted_connection=yes;";
             
             var builder = services.AddIdentityServer()
                 .AddTestUsers(TestUsers.Users)
@@ -63,7 +63,7 @@ namespace IdentityServer
                     options.SignOutScheme = IdentityServerConstants.SignoutScheme;
                     options.SaveTokens = true;
 
-                    options.Authority = "https://demo.identityserver8.io/";
+                    options.Authority = "https://demo.IdentityServer4.io/";
                     options.ClientId = "interactive.confidential";
                     options.ClientSecret = "secret";
                     options.ResponseType = "code";

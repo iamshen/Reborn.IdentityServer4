@@ -10,7 +10,7 @@
  copies or substantial portions of the Software.
 */
 
-namespace IdentityServer8.Models;
+namespace IdentityServer4.Models;
 
 /// <summary>
 /// Models the common data of API and identity resources.

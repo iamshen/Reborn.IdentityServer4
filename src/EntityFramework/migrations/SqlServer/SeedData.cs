@@ -10,8 +10,8 @@
  copies or substantial portions of the Software.
 */
 
-using IdentityServer8.EntityFramework.DbContexts;
-using IdentityServer8.EntityFramework.Mappers;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
 using IdentityServerHost.Configuration;
 
 namespace SqlServer;

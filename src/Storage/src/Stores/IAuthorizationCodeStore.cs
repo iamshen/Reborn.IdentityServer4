@@ -10,7 +10,7 @@
  copies or substantial portions of the Software.
 */
 
-namespace IdentityServer8.Stores;
+namespace IdentityServer4.Stores;
 
 /// <summary>
 /// Interface for the authorization code store

@@ -16,7 +16,7 @@ public class Program
 {
         public static int Main(string[] args)
         {
-            Console.Title = "IdentityServer8.EntityFramework";
+            Console.Title = "IdentityServer4.EntityFramework";
             Activity.DefaultIdFormat = ActivityIdFormat.W3C;
 
             Log.Logger = new LoggerConfiguration()
@@ -26,7 +26,7 @@ public class Program
                 .MinimumLevel.Override("System", LogEventLevel.Warning)
                 .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
                 .Enrich.FromLogContext()
-                //.WriteTo.File(@"IdentityServer8_log.txt")
+                //.WriteTo.File(@"IdentityServer4_log.txt")
                 // uncomment to write to Azure diagnostics stream
                 //.WriteTo.File(
                 //    @"D:\home\LogFiles\Application\identityserver.txt",

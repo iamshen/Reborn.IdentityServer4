@@ -12,7 +12,7 @@
 
 #pragma warning disable 1591
 
-namespace IdentityServer8;
+namespace IdentityServer4;
 
 internal static class IdentityServerConstants
 {

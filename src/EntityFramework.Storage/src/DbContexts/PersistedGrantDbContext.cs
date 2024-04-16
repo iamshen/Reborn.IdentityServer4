@@ -10,15 +10,15 @@
  copies or substantial portions of the Software.
 */
 
-using IdentityServer8.EntityFramework.Entities;
+using IdentityServer4.EntityFramework.Entities;
 
-namespace IdentityServer8.EntityFramework.DbContexts
+namespace IdentityServer4.EntityFramework.DbContexts
 {
     /// <summary>
     /// DbContext for the IdentityServer operational data.
     /// </summary>
     /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
-    /// <seealso cref="IdentityServer8.EntityFramework.Interfaces.IPersistedGrantDbContext" />
+    /// <seealso cref="IdentityServer4.EntityFramework.Interfaces.IPersistedGrantDbContext" />
     public class PersistedGrantDbContext : PersistedGrantDbContext<PersistedGrantDbContext>
     {
         /// <summary>
@@ -37,7 +37,7 @@ namespace IdentityServer8.EntityFramework.DbContexts
     /// DbContext for the IdentityServer operational data.
     /// </summary>
     /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
-    /// <seealso cref="IdentityServer8.EntityFramework.Interfaces.IPersistedGrantDbContext" />
+    /// <seealso cref="IdentityServer4.EntityFramework.Interfaces.IPersistedGrantDbContext" />
     public class PersistedGrantDbContext<TContext> : DbContext, IPersistedGrantDbContext
         where TContext : DbContext, IPersistedGrantDbContext
     {

@@ -1,3 +1,3 @@
-# IdentityServer8.Storage
+# IdentityServer4.Storage
 
-IdentityServer8.Storage contains all the models and storage interfaces for IdentityServer 4 configuration data.
+IdentityServer4.Storage contains all the models and storage interfaces for IdentityServer 4 configuration data.

@@ -10,7 +10,7 @@
  copies or substantial portions of the Software.
 */
 
-namespace IdentityServer8.Models.AccountViewModels;
+namespace IdentityServer4.Models.AccountViewModels;
 
 public class ExternalLoginViewModel
 {

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Description>EntityFramework persistence layer for IdentityServer4</Description>
+        <IsPackable>true</IsPackable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <ContinuousIntegrationBuild Condition="'$(TF_BUILD)' == 'true'">True</ContinuousIntegrationBuild>
+        <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">True</ContinuousIntegrationBuild>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\EntityFramework.Storage\src\IdentityServer4.EntityFramework.Storage.csproj" />
+        <ProjectReference Include="..\..\IdentityServer4\src\IdentityServer4.csproj" />
+    </ItemGroup>
+</Project>

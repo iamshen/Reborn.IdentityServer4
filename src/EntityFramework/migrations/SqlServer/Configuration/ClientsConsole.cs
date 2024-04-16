@@ -11,8 +11,8 @@
 */
 
 using System.Collections.Generic;
-using IdentityServer8;
-using IdentityServer8.Models;
+using IdentityServer4;
+using IdentityServer4.Models;
 
 namespace IdentityServerHost.Configuration;
 

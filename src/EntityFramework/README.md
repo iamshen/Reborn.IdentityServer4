@@ -1,7 +1,7 @@
-# IdentityServer8.EntityFramework
+# IdentityServer4.EntityFramework
 
-IdentityServer8.EntityFramework is a package that provides the configuration APIs to add persistence for IdentityServer 4 configuration data that uses EntityFramework as its database abstraction.
+IdentityServer4.EntityFramework is a package that provides the configuration APIs to add persistence for IdentityServer 4 configuration data that uses EntityFramework as its database abstraction.
 
 ## Issues
 
-For issues, use the [consolidated IdentityServer8 issue tracker](https://github.com/alexhiggins732/IdentityServer8/issues).
+For issues, use the [consolidated IdentityServer4 issue tracker](https://github.com/alexhiggins732/IdentityServer4/issues).

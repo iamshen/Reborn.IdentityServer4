@@ -23,7 +23,7 @@ try
     services.AddControllersWithViews();
 
     var migrationsAssembly = typeof(Program).GetTypeInfo().Assembly.GetName().Name;
-    const string connectionString = @"Data Source=(LocalDb)\MSSQLLocalDB;database=IdentityServer8.Quickstart.EntityFramework-4.0.0;trusted_connection=yes;";
+    const string connectionString = @"Data Source=(LocalDb)\MSSQLLocalDB;database=IdentityServer4.Quickstart.EntityFramework-4.0.0;trusted_connection=yes;";
 
     services.AddIdentityServer()
         .AddTestUsers(TestUsers.Users)
@@ -53,7 +53,7 @@ try
             options.SignOutScheme = IdentityServerConstants.SignoutScheme;
             options.SaveTokens = true;
 
-            options.Authority = "https://demo.identityserver8.io/";
+            options.Authority = "https://demo.IdentityServer4.io/";
             options.ClientId = "interactive.confidential";
             options.ClientSecret = "secret";
             options.ResponseType = "code";

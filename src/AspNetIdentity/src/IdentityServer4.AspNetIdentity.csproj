@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+      <Description>ASP.NET Core Identity Integration for IdentityServer4</Description>
+      <IsPackable>true</IsPackable>
+      <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+      <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ContinuousIntegrationBuild Condition="'$(TF_BUILD)' == 'true'">True</ContinuousIntegrationBuild>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">True</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\IdentityServer4\src\IdentityServer4.csproj" />
+  </ItemGroup>
+
+</Project>

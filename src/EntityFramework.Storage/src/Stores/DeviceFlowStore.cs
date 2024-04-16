@@ -10,15 +10,15 @@
  copies or substantial portions of the Software.
 */
 
-using IdentityServer8.EntityFramework.Entities;
-using IdentityServer8.Models;
+using IdentityServer4.EntityFramework.Entities;
+using IdentityServer4.Models;
 
-namespace IdentityServer8.EntityFramework.Stores
+namespace IdentityServer4.EntityFramework.Stores
 {
     /// <summary>
     /// Implementation of IDeviceFlowStore thats uses EF.
     /// </summary>
-    /// <seealso cref="IdentityServer8.Stores.IDeviceFlowStore" />
+    /// <seealso cref="IdentityServer4.Stores.IDeviceFlowStore" />
     public class DeviceFlowStore : IDeviceFlowStore
     {
         /// <summary>

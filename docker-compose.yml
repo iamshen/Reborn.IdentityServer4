@@ -14,41 +14,41 @@ services:
       proxy: null
       identityserverui:
         aliases:
-          - sts.higginssoft.local
-          - admin.higginssoft.local
-          - admin-api.higginssoft.local
+          - sts.Reborn.local
+          - admin.Reborn.local
+          - admin-api.Reborn.local
     restart: always
-  IdentityServer8.Admin:
+  IdentityServer4.Admin:
     image: '${DOCKER_REGISTRY-}higginssoft-identityserver4-admin'
     build:
       context: .
-      dockerfile: src/IdentityServer8.Admin/Dockerfile
+      dockerfile: src/IdentityServer4.Admin/Dockerfile
     container_name: higginssoft-identityserver4-admin
     environment:
-      - VIRTUAL_HOST=admin.higginssoft.local
-      - 'ConnectionStrings__ConfigurationDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
-      - 'ConnectionStrings__PersistedGrantDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
-      - 'ConnectionStrings__IdentityDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
-      - 'ConnectionStrings__AdminLogDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
-      - 'ConnectionStrings__AdminAuditLogDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
-      - 'ConnectionStrings__DataProtectionDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
-      - 'AdminConfiguration__IdentityAdminBaseUrl=https://admin.higginssoft.local'
-      - 'AdminConfiguration__IdentityAdminRedirectUri=https://admin.higginssoft.local/signin-oidc'
-      - 'AdminConfiguration__IdentityServerBaseUrl=https://sts.higginssoft.local'
+      - VIRTUAL_HOST=admin.Reborn.local
+      - 'ConnectionStrings__ConfigurationDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'ConnectionStrings__PersistedGrantDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'ConnectionStrings__IdentityDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'ConnectionStrings__AdminLogDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'ConnectionStrings__AdminAuditLogDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'ConnectionStrings__DataProtectionDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'AdminConfiguration__IdentityAdminBaseUrl=https://admin.Reborn.local'
+      - 'AdminConfiguration__IdentityAdminRedirectUri=https://admin.Reborn.local/signin-oidc'
+      - 'AdminConfiguration__IdentityServerBaseUrl=https://sts.Reborn.local'
       - AdminConfiguration__RequireHttpsMetadata=false
-      - 'IdentityServerData__Clients__0__ClientUri=https://admin.higginssoft.local'
-      - 'IdentityServerData__Clients__0__RedirectUris__0=https://admin.higginssoft.local/signin-oidc'
-      - 'IdentityServerData__Clients__0__FrontChannelLogoutUri=https://admin.higginssoft.local/signin-oidc'
-      - 'IdentityServerData__Clients__0__PostLogoutRedirectUris__0=https://admin.higginssoft.local/signout-callback-oidc'
-      - 'IdentityServerData__Clients__0__AllowedCorsOrigins__0=https://admin.higginssoft.local'
-      - 'IdentityServerData__Clients__1__RedirectUris__0=https://admin-api.higginssoft.local/swagger/oauth2-redirect.html'
-      - 'Serilog__WriteTo__1__Args__connectionString=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'IdentityServerData__Clients__0__ClientUri=https://admin.Reborn.local'
+      - 'IdentityServerData__Clients__0__RedirectUris__0=https://admin.Reborn.local/signin-oidc'
+      - 'IdentityServerData__Clients__0__FrontChannelLogoutUri=https://admin.Reborn.local/signin-oidc'
+      - 'IdentityServerData__Clients__0__PostLogoutRedirectUris__0=https://admin.Reborn.local/signout-callback-oidc'
+      - 'IdentityServerData__Clients__0__AllowedCorsOrigins__0=https://admin.Reborn.local'
+      - 'IdentityServerData__Clients__1__RedirectUris__0=https://admin-api.Reborn.local/swagger/oauth2-redirect.html'
+      - 'Serilog__WriteTo__1__Args__connectionString=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
       - DockerConfiguration__UpdateCaCertificate=true
       - ASPNETCORE_ENVIRONMENT=Development
-    command: dotnet IdentityServer8.Admin.dll /seed
+    command: dotnet IdentityServer4.Admin.dll /seed
     depends_on:
       - db
-      - higginssoft.identityserver4.sts.identity
+      - Reborn.identityserver4.sts.identity
     volumes:
       - './shared/serilog.json:/app/serilog.json'
       - './shared/identitydata.json:/app/identitydata.json'
@@ -56,23 +56,23 @@ services:
       - './shared/nginx/certs/cacerts.crt:/usr/local/share/ca-certificates/cacerts.crt'
     networks:
       identityserverui: null
-  IdentityServer8.Admin.api:
+  IdentityServer4.Admin.api:
     image: '${DOCKER_REGISTRY-}higginssoft-identityserver4-admin-api'
     build:
       context: .
-      dockerfile: src/IdentityServer8.Admin.Api/Dockerfile
+      dockerfile: src/IdentityServer4.Admin.Api/Dockerfile
     container_name: higginssoft-identityserver4-admin-api
     environment:
-      - VIRTUAL_HOST=admin-api.higginssoft.local
+      - VIRTUAL_HOST=admin-api.Reborn.local
       - AdminApiConfiguration__RequireHttpsMetadata=false
-      - 'AdminApiConfiguration__ApiBaseUrl=https://admin-api.higginssoft.local'
-      - 'AdminApiConfiguration__IdentityServerBaseUrl=https://sts.higginssoft.local'
-      - 'ConnectionStrings__ConfigurationDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
-      - 'ConnectionStrings__PersistedGrantDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
-      - 'ConnectionStrings__IdentityDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
-      - 'ConnectionStrings__AdminLogDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
-      - 'ConnectionStrings__AdminAuditLogDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
-      - 'ConnectionStrings__DataProtectionDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'AdminApiConfiguration__ApiBaseUrl=https://admin-api.Reborn.local'
+      - 'AdminApiConfiguration__IdentityServerBaseUrl=https://sts.Reborn.local'
+      - 'ConnectionStrings__ConfigurationDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'ConnectionStrings__PersistedGrantDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'ConnectionStrings__IdentityDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'ConnectionStrings__AdminLogDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'ConnectionStrings__AdminAuditLogDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'ConnectionStrings__DataProtectionDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
       - DockerConfiguration__UpdateCaCertificate=true
       - ASPNETCORE_ENVIRONMENT=Development
     volumes:
@@ -80,20 +80,20 @@ services:
       - './shared/nginx/certs/cacerts.crt:/usr/local/share/ca-certificates/cacerts.crt'
     networks:
       identityserverui: null
-  higginssoft.identityserver4.sts.identity:
+  Reborn.identityserver4.sts.identity:
     image: '${DOCKER_REGISTRY-}higginssoft-identityserver4-sts-identity'
     build:
       context: .
-      dockerfile: src/IdentityServer8.STS.Identity/Dockerfile
+      dockerfile: src/IdentityServer4.STS.Identity/Dockerfile
     container_name: higginssoft-identityserver4-sts-identity
     environment:
-      - VIRTUAL_HOST=sts.higginssoft.local
-      - 'ConnectionStrings__ConfigurationDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
-      - 'ConnectionStrings__PersistedGrantDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
-      - 'ConnectionStrings__IdentityDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
-      - 'ConnectionStrings__DataProtectionDbConnection=Server=db;Database=IdentityServer8Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
-      - 'AdminConfiguration__IdentityAdminBaseUrl=https://admin.higginssoft.local'
-      - 'IdentityServerOptions__IssuerUri=https://sts.higginssoft.local'
+      - VIRTUAL_HOST=sts.Reborn.local
+      - 'ConnectionStrings__ConfigurationDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'ConnectionStrings__PersistedGrantDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'ConnectionStrings__IdentityDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'ConnectionStrings__DataProtectionDbConnection=Server=db;Database=IdentityServer4Admin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
+      - 'AdminConfiguration__IdentityAdminBaseUrl=https://admin.Reborn.local'
+      - 'IdentityServerOptions__IssuerUri=https://sts.Reborn.local'
       - IdentityServerOptions__Events__RaiseErrorEvents=true
       - IdentityServerOptions__Events__RaiseInformationEvents=true
       - IdentityServerOptions__Events__RaiseFailureEvents=true
@@ -108,7 +108,7 @@ services:
     networks:
       identityserverui:
         aliases:
-          - sts.higginssoft.local
+          - sts.Reborn.local
   db:
     image: 'mcr.microsoft.com/mssql/server:2017-CU20-ubuntu-16.04'
     ports:
