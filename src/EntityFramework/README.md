@@ -4,4 +4,4 @@ IdentityServer4.EntityFramework is a package that provides the configuration API
 
 ## Issues
 
-For issues, use the [consolidated IdentityServer4 issue tracker](https://github.com/alexhiggins732/IdentityServer4/issues).
+For issues, use the [consolidated IdentityServer4 issue tracker](https://github.com/iamshen/IdentityServer8/issues).

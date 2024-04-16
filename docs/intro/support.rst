@@ -27,10 +27,10 @@ https://app.gitter.im/#/room/#IdentityServer4:gitter.im
 
 **Reporting a bug**
 
-If you think you have found a bug or unexpected behavior, please open an issue on the Github `issue tracker <https://github.com/alexhiggins732/IdentityServer4/issues>`_.
+If you think you have found a bug or unexpected behavior, please open an issue on the Github `issue tracker <https://github.com/iamshen/IdentityServer8/issues>`_.
 We try to get back to you ASAP. Please understand that we also have day jobs, and might be too busy to reply immediately.
 
-Also check the `contribution <https://github.com/alexhiggins732/IdentityServer4/blob/dev/CONTRIBUTING.md>`_ guidelines before posting.
+Also check the `contribution <https://github.com/iamshen/IdentityServer8/blob/dev/CONTRIBUTING.md>`_ guidelines before posting.
 
 Commercial support
 ^^^^^^^^^^^^^^^^^^

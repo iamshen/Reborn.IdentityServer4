@@ -1,4 +1,6 @@
 /*
+ Copyright (c) 2024 Iamshen . All rights reserved.
+
  Copyright (c) 2024 HigginsSoft, Alexander Higgins - https://github.com/alexhiggins732/ 
 
  Copyright (c) 2018, Brock Allen & Dominick Baier. All rights reserved.
@@ -53,7 +55,7 @@ public static class IdentityServerBuilderExtensions
         builder.Services.ConfigureExternalCookie(options =>
         {
             options.Cookie.IsEssential = true;
-            // https://github.com/alexhiggins732/IdentityServer4/issues/2595
+            // https://github.com/iamshen/IdentityServer8/issues/2595
             options.Cookie.SameSite = AspNetCore.Http.SameSiteMode.None;
         });
 

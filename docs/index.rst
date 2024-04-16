@@ -6,7 +6,7 @@ Welcome to IdentityServer4 (latest)
 
 IdentityServer4 is an OpenID Connect and OAuth 2.0 framework for ASP.NET DotNet 8.
 
-Browse the latest `IdentityServer4 source code onGitHub <https://github.com/alexhiggins732/IdentityServer4>`_ or download the `latest IdentyServer8 packages <https://www.nuget.org/packages/Reborn.IdentityServer4//>`_ on NuGet.
+Browse the latest `IdentityServer4 source code onGitHub <https://github.com/iamshen/IdentityServer8>`_ or download the `latest IdentyServer8 packages <https://www.nuget.org/packages/Reborn.IdentityServer4//>`_ on NuGet.
 
 .. warning:: 
    This is a revival of the archived IdentityServer4 project which started a new `company <https://duendesoftware.com/>`_ as of Oct, 1st 2020. 

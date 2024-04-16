@@ -12,14 +12,14 @@ Also read this first: `Being a good open source citizen <https://hackernoon.com/
 
 General feedback and discussions?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Please start a discussion on the `core repo issue tracker <https://github.com/alexhiggins732/IdentityServer4/issues>`_.
+Please start a discussion on the `core repo issue tracker <https://github.com/iamshen/IdentityServer8/issues>`_.
 
 Bugs and feature requests?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 Please log a new issue in the appropriate GitHub repo:
 
-* `Core <https://github.com/alexhiggins732/IdentityServer4>`_
-* `AccessTokenValidation <https://github.com/alexhiggins732/IdentityServer4.AccessTokenValidation>`_
+* `Core <https://github.com/iamshen/IdentityServer8>`_
+* `AccessTokenValidation <https://github.com/iamshen/IdentityServer8.AccessTokenValidation>`_
 
 Contributing code and content
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

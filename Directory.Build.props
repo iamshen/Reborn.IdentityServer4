@@ -20,14 +20,14 @@
 
         <Description>OpenID Connect and OAuth 2.0 Framework for ASP.NET Core</Description>
         <Copyright>Copyright 2024 Reborn. Alexander Higgins</Copyright>
-        <Authors>HigginsSoft, Alexander Higgins, Brock Allen, Dominick Baier</Authors>
+        <Authors>Iamshen,  HigginsSoft, Alexander Higgins, Brock Allen, Dominick Baier</Authors>
   
         <PackageTags>OAuth2 OAuth 2.0 OpenID Connect Security Identity IdentityServer Admin IdentityServer4 OpenIDConnect </PackageTags>
 
 
-        <PackageProjectUrl>https://github.com/alexhiggins732/IdentityServer4</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/iamshen/IdentityServer8</PackageProjectUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageReleaseNotes>https://github.com/alexhiggins732/IdentityServer4/releases</PackageReleaseNotes>
+        <PackageReleaseNotes>https://github.com/iamshen/IdentityServer8/releases</PackageReleaseNotes>
 
         <!-- Declare that the Repository URL can be published to NuSpec -->
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
