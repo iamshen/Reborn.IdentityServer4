@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "Idsrv4&Api",
+    "Projects": [
+      {
+        "Path": "src\\IdentityServer\\IdentityServer.csproj",
+        "Action": "Start",
+        "DebugTarget": "SelfHost"
+      },
+      {
+        "Path": "..\\Shared\\src\\Api\\Api.csproj",
+        "Action": "Start",
+        "DebugTarget": "SelfHost"
+      }
+    ]
+  }
+]

@@ -130,6 +130,7 @@ public static class BuilderExtensions
         //builder.AddDeveloperSigningCredential();
 
         // use an RSA-based certificate with RS256
+#pragma warning disable SYSLIB0057
         var rsaCert = new X509Certificate2("./keys/identityserver.test.rsa.p12", "changeit");
         builder.AddSigningCredential(rsaCert, "RS256");
 
@@ -142,6 +143,7 @@ public static class BuilderExtensions
         {
             KeyId = CryptoRandom.CreateUniqueId(16, CryptoRandom.OutputFormat.Hex)
         };
+#pragma warning restore SYSLIB0057
 
         return builder.AddSigningCredential(
             key,
@@ -237,6 +239,8 @@ public static class ServiceExtensions
 
     public static void AddCertificateForwardingForNginx(this IServiceCollection services)
     {
+#pragma warning disable SYSLIB0057
+
         services.AddCertificateForwarding(options =>
         {
             options.CertificateHeader = "X-SSL-CERT";
@@ -254,5 +258,6 @@ public static class ServiceExtensions
                 return clientCertificate;
             };
         });
+#pragma warning restore SYSLIB0057
     }
 }

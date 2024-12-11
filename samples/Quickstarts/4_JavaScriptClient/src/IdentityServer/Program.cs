@@ -1,17 +1,17 @@
 /*
  Copyright (c) 2024 Iamshen . All rights reserved.
 
- Copyright (c) 2024 HigginsSoft, Alexander Higgins - https://github.com/alexhiggins732/ 
+ Copyright (c) 2024 HigginsSoft, Alexander Higgins - https://github.com/alexhiggins732/
 
  Copyright (c) 2018, Brock Allen & Dominick Baier. All rights reserved.
 
- Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information. 
- Source code and license this software can be found 
+ Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+ Source code and license this software can be found
 
  The above copyright notice and this permission notice shall be included in all
  copies or substantial portions of the Software.
 */
-
+var MyAllowSpecificOrigins = "_defaultOrigins";
 ConfigureLogger();
 
 try
@@ -23,6 +23,19 @@ try
     var services = builder.Services;
 
     services.AddControllersWithViews();
+
+    services.AddCors(options =>
+    {
+        options.AddPolicy(name: MyAllowSpecificOrigins,
+            policy =>
+            {
+                policy.WithOrigins("http://localhost:5003", "https://localhost:5003");
+                policy.AllowCredentials();
+
+                policy.AllowAnyMethod();
+                policy.AllowAnyHeader();
+            });
+    });
 
     services
         .AddIdentityServer()
@@ -64,10 +77,13 @@ try
         if (app.Environment.IsDevelopment())
             app.UseDeveloperExceptionPage();
 
+        app.UseCors(MyAllowSpecificOrigins);
+
         app.UseStaticFiles()
             .UseRouting()
             .UseIdentityServer()
             .UseAuthorization();
+
 
         app.MapDefaultControllerRoute();
 

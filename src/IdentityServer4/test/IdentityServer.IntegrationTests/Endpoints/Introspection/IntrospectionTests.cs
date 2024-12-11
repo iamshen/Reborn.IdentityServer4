@@ -190,7 +190,7 @@ public class IntrospectionTests
             Token = tokenResponse.AccessToken
         });
 
-        var values = introspectionResponse.Json.ToObject<Dictionary<string, JsonElement>>();
+        var values = introspectionResponse.Json?.Deserialize<Dictionary<string, JsonElement>>();
 
         values["aud"].ValueKind.Should().Be(JsonValueKind.String);
         values["iss"].ValueKind.Should().Be(JsonValueKind.String);
@@ -229,7 +229,7 @@ public class IntrospectionTests
             Token = tokenResponse.AccessToken
         });
 
-        var values = introspectionResponse.Json.ToObject<Dictionary<string, JsonElement>>();
+        var values = introspectionResponse.Json?.Deserialize<Dictionary<string, JsonElement>>();
 
         values["aud"].ValueKind.Should().Be(JsonValueKind.String);
         values["iss"].ValueKind.Should().Be(JsonValueKind.String);
@@ -268,7 +268,7 @@ public class IntrospectionTests
             Token = tokenResponse.AccessToken
         });
 
-        var values = introspectionResponse.Json.ToObject<Dictionary<string, JsonElement>>();
+        var values = introspectionResponse.Json?.Deserialize<Dictionary<string, JsonElement>>();
 
 
         values["aud"].GetType().Name.Should().Be("JsonElement");
@@ -319,7 +319,7 @@ public class IntrospectionTests
             Token = tokenResponse.AccessToken
         });
 
-        var values = introspectionResponse.Json.ToObject<Dictionary<string, JsonElement>>();
+        var values = introspectionResponse.Json?.Deserialize<Dictionary<string, JsonElement>>();
         values["aud"].ValueKind.Should().Be(JsonValueKind.String);
         values["aud"].ValueKind.Should().Be(JsonValueKind.String);
         values["iss"].ValueKind.Should().Be(JsonValueKind.String); 

@@ -5,7 +5,7 @@
     <PackageReference Include="jQuery.validation" />
     <PackageReference Include="Reborn.IdentityServer4" />
     <PackageReference Include="Reborn.IdentityServer4.AspnetIdentity" />
-     <PackageReference Include="Reborn.IdentityServer4.Security" />
+    <PackageReference Include="Reborn.IdentityServer4.Security" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" />
 

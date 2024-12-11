@@ -24,6 +24,7 @@ using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Xunit;
+#pragma warning disable xUnit1048
 
 namespace IdentityServer.UnitTests.Validation.Secrets
 {

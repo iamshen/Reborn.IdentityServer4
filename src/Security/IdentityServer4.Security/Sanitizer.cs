@@ -213,7 +213,7 @@ public class JsonSanitizer : SanitizerBase, IJsonSanitizer
 }
 public class UrlSanitizer : SanitizerBase, IUrlSanitizer
 {
-    public UrlSanitizer() : base(x => Uri.EscapeUriString(x?.ToString() ?? ""))
+    public UrlSanitizer() : base(x => Uri.EscapeDataString(x?.ToString() ?? ""))
     {
 
     }

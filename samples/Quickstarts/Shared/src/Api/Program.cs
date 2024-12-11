@@ -55,21 +55,19 @@ services
     });
 
 
+await using var app = builder.Build();
 
-using (var app = builder.Build())
-{
-    if (app.Environment.IsDevelopment())
-        app.UseDeveloperExceptionPage();
+if (app.Environment.IsDevelopment())
+    app.UseDeveloperExceptionPage();
 
-    app
-        .UseRouting()
-        .UseAuthentication()
-        .UseAuthorization()
-        .UseCors("default");
+app
+    .UseRouting()
+    .UseAuthentication()
+    .UseAuthorization()
+    .UseCors("default");
 
-    app.MapGet("/identity", (HttpContext context) =>
-            new JsonResult(context?.User?.Claims.Select(c => new { c.Type, c.Value }))
-        ).RequireAuthorization("ApiScope");
+app.MapGet("/identity", (HttpContext context) =>
+    new JsonResult(context?.User?.Claims.Select(c => new { c.Type, c.Value }))
+).RequireAuthorization("ApiScope");
 
-    await app.RunAsync();
-}
+await app.RunAsync();

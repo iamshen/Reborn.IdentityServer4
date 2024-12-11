@@ -22,6 +22,8 @@ internal static class TestCert
     public static X509Certificate2 Load()
     {
         var cert = Path.Combine(System.AppContext.BaseDirectory, "identityserver_testing.pfx");
+#pragma warning disable SYSLIB0057
         return new X509Certificate2(cert, "password");
+#pragma warning restore SYSLIB0057
     }
 }

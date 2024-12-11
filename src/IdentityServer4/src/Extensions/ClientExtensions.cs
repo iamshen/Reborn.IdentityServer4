@@ -58,10 +58,12 @@ public static class ClientExtensions
 
     private static List<X509Certificate2> GetCertificates(IEnumerable<Secret> secrets)
     {
+#pragma warning disable SYSLIB0057
         return secrets
             .Where(s => s.Type == IdentityServerConstants.SecretTypes.X509CertificateBase64)
             .Select(s => new X509Certificate2(Convert.FromBase64String(s.Value)))
             .Where(c => c != null)
             .ToList();
+#pragma warning restore SYSLIB0057
     }
 }
