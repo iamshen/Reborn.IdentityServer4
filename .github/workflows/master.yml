@@ -50,7 +50,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 9.0.x
 
 
     - uses: dotnet/nbgv@master
@@ -59,17 +59,17 @@ jobs:
       run: echo "PackageVersion=${{ steps.nbgv.outputs.SimpleVersion }}"
 
     - name: Restore dependencies
-      run: dotnet restore src/IdentityServer4.sln
+      run: dotnet restore src/Reborn.IdentityServer4.sln
     - name: Build
-      run: dotnet build src/IdentityServer4.sln --configuration Release --no-restore -p:Version=${{ steps.nbgv.outputs.SimpleVersion }}
+      run: dotnet build src/Reborn.IdentityServer4.sln --configuration Release --no-restore -p:Version=${{ steps.nbgv.outputs.SimpleVersion }}
     - name: Test
-      run: dotnet test src/IdentityServer4.sln --configuration Release --no-build --verbosity normal /p:CollectCoverage=true --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
+      run: dotnet test src/Reborn.IdentityServer4.sln --configuration Release --no-build --verbosity normal /p:CollectCoverage=true --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v4.0.1
       env:
         token: ${{ secrets.CODECOV_TOKEN }}
-        slug: alexhiggins732/IdentityServer4
+        slug: iamshen/Reborn.IdentityServer4
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
     - name: Push
