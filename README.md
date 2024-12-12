@@ -1,6 +1,6 @@
 # Reborn.IdentityServer4
 
-> this project fork from [alexhiggins732/IdentityServer8](https://github.com/alexhiggins732/IdentityServer8)
+> this project fork from [alexhiggins732/IdentityServer8](https://github.com/iamshen/Reborn.IdentityServer4)
 
 
 This project is a DotNet 9 revival of the Identity Server 4 and Identity Server 4 Admin UI, for Open ID Connect (OIDC) and OAuth, which was archived when .NET Core 3.1 reached end of support.
@@ -27,6 +27,13 @@ General speaking, the existing documentation for Identity Server 4 will be valid
 ## Build Status And Stats
 
 [![CI Build](https://github.com/iamshen/Reborn.IdentityServer4/actions/workflows/master.yml/badge.svg)](https://github.com/iamshen/Reborn.IdentityServer4/actions/workflows/master.yml)
+
+
+## Code Coverage
+[![Master | Build](https://github.com/iamshen/Reborn.IdentityServer4/actions/workflows/master.yml/badge.svg)](https://img.shields.io/codecov/c/github/iamshen/Reborn.IdentityServer4) [![Master|CodeQL](https://github.com/iamshen/Reborn.IdentityServer4/actions/workflows/codeql.yml/badge.svg)](https://github.com/iamshen/Reborn.IdentityServer4/actions/workflows/codeql.yml)
+
+[![Master|CodeQL](https://github.com/iamshen/Reborn.IdentityServer4/actions/workflows/codeql.yml/badge.svg?branch=develop)](https://github.com/iamshen/Reborn.IdentityServer4/actions/workflows/codeql.yml?branch=develop)
+
 
 ## Nuget Packages
 
