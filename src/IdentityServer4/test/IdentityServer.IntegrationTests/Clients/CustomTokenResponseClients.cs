@@ -92,7 +92,7 @@ public class CustomTokenResponseClients
         // token content
         var payload = GetPayload(response);
         payload.Count().Should().Be(12);
-        payload.Should().Contain("iss", "https://idsvr8");
+        payload.Should().Contain("iss", "https://idsrv4");
         payload.Should().Contain("client_id", "roclient");
         payload.Should().Contain("sub", "bob");
         payload.Should().Contain("idp", "local");
@@ -211,7 +211,7 @@ public class CustomTokenResponseClients
         // token content
         var payload = GetPayload(response);
         payload.Count().Should().Be(12);
-        payload.Should().Contain("iss", "https://idsvr8");
+        payload.Should().Contain("iss", "https://idsrv4");
         payload.Should().Contain("client_id", "client.custom");
         payload.Should().Contain("sub", "bob");
         payload.Should().Contain("idp", "local");

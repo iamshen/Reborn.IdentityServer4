@@ -75,7 +75,7 @@ public class ExtensionGrantClient
         exp.Should().BeGreaterThan(unixNow + 3595);
 
         payload.Count().Should().Be(12);
-        payload.Should().Contain("iss", "https://idsvr8");
+        payload.Should().Contain("iss", "https://idsrv4");
         payload.Should().Contain("client_id", "client.custom");
         payload.Should().Contain("sub", "818727");
         payload.Should().Contain("idp", "local");
@@ -124,7 +124,7 @@ public class ExtensionGrantClient
         exp.Should().BeGreaterThan(unixNow + 3595);
 
         payload.Count().Should().Be(13);
-        payload.Should().Contain("iss", "https://idsvr8");
+        payload.Should().Contain("iss", "https://idsrv4");
         payload.Should().Contain("client_id", "client.custom");
         payload.Should().Contain("sub", "818727");
         payload.Should().Contain("idp", "local");
@@ -191,7 +191,7 @@ public class ExtensionGrantClient
         exp.Should().BeGreaterThan(unixNow + 3595);
 
         payload.Count().Should().Be(13);
-        payload.Should().Contain("iss", "https://idsvr8");
+        payload.Should().Contain("iss", "https://idsrv4");
         payload.Should().Contain("client_id", "client.custom");
         payload.Should().Contain("sub", "818727");
         payload.Should().Contain("idp", "local");
@@ -235,7 +235,7 @@ public class ExtensionGrantClient
         var payload = GetPayload(response);
 
         payload.Count().Should().Be(8);
-        payload.Should().Contain("iss", "https://idsvr8");
+        payload.Should().Contain("iss", "https://idsrv4");
         payload.Should().Contain("client_id", "client.custom");
 
         payload["aud"].Should().Be("api");
@@ -271,7 +271,7 @@ public class ExtensionGrantClient
         var payload = GetPayload(response);
 
         payload.Count().Should().Be(12);
-        payload.Should().Contain("iss", "https://idsvr8");
+        payload.Should().Contain("iss", "https://idsrv4");
         payload.Should().Contain("client_id", "client.custom");
         payload.Should().Contain("sub", "818727");
         payload.Should().Contain("idp", "local");
@@ -395,7 +395,7 @@ public class ExtensionGrantClient
         exp.Should().BeGreaterThan(unixNow + 4995);
 
         payload.Count().Should().Be(10);
-        payload.Should().Contain("iss", "https://idsvr8");
+        payload.Should().Contain("iss", "https://idsrv4");
         payload.Should().Contain("client_id", "client.dynamic");
         payload.Should().Contain("sub", "818727");
         payload.Should().Contain("idp", "local");
@@ -536,7 +536,7 @@ public class ExtensionGrantClient
         var payload = GetPayload(response);
 
         payload.Count().Should().Be(13);
-        payload.Should().Contain("iss", "https://idsvr8");
+        payload.Should().Contain("iss", "https://idsrv4");
         payload.Should().Contain("client_id", "client.dynamic");
         payload.Should().Contain("sub", "818727");
         payload.Should().Contain("idp", "local");
@@ -582,7 +582,7 @@ public class ExtensionGrantClient
         var payload = GetPayload(response);
 
         payload.Count().Should().Be(9);
-        payload.Should().Contain("iss", "https://idsvr8");
+        payload.Should().Contain("iss", "https://idsrv4");
         payload.Should().Contain("client_id", "client.dynamic");
         payload.Should().Contain("client_extra", "extra_claim");
 

@@ -110,7 +110,7 @@ public static class SanitizerServiceExtensions
     {
         var decoded = Uri.UnescapeDataString(input?.ToString() ?? "");
         decoded.SanitizeForHtml();
-        var escaped = Uri.EscapeDataString(decoded);
+        var escaped = Uri.EscapeUriString(decoded);
         return escaped;
     }
 

@@ -64,7 +64,7 @@ public class ResourceOwnerClient
         var payload = GetPayload(response);
 
         payload.Count().Should().Be(12);
-        payload.Should().Contain("iss", "https://idsvr8");
+        payload.Should().Contain("iss", "https://idsrv4");
         payload.Should().Contain("client_id", "roclient");
         payload.Should().Contain("sub", "88421113");
         payload.Should().Contain("idp", "local");
@@ -103,7 +103,7 @@ public class ResourceOwnerClient
 
         var payload = GetPayload(response);
         
-        payload.Should().Contain("iss", "https://idsvr8");
+        payload.Should().Contain("iss", "https://idsrv4");
         payload.Should().Contain("client_id", "roclient");
         payload.Should().Contain("sub", "88421113");
         payload.Should().Contain("idp", "local");
@@ -152,7 +152,7 @@ public class ResourceOwnerClient
         var payload = GetPayload(response);
 
         payload.Count().Should().Be(12);
-        payload.Should().Contain("iss", "https://idsvr8");
+        payload.Should().Contain("iss", "https://idsrv4");
         payload.Should().Contain("client_id", "roclient");
         payload.Should().Contain("sub", "88421113");
         payload.Should().Contain("idp", "local");
@@ -195,7 +195,7 @@ public class ResourceOwnerClient
         var payload = GetPayload(response);
 
         payload.Count().Should().Be(12);
-        payload.Should().Contain("iss", "https://idsvr8");
+        payload.Should().Contain("iss", "https://idsrv4");
         payload.Should().Contain("client_id", "roclient");
         payload.Should().Contain("sub", "88421113");
         payload.Should().Contain("idp", "local");

@@ -39,7 +39,7 @@ public class CorsPolicyServiceTests : IntegrationTest<CorsPolicyServiceTests, Co
     [Theory, MemberData(nameof(TestDatabaseProviders))]
     public async Task IsOriginAllowedAsync_WhenOriginIsAllowed_ExpectTrue(DbContextOptions<ConfigurationDbContext> options)
     {
-        const string testCorsOrigin = "https://IdentityServer4.io/";
+        const string testCorsOrigin = "https://identityserver4.io/";
 
         using (var context = new ConfigurationDbContext(options, StoreOptions))
         {
@@ -47,13 +47,13 @@ public class CorsPolicyServiceTests : IntegrationTest<CorsPolicyServiceTests, Co
             {
                 ClientId = Guid.NewGuid().ToString(),
                 ClientName = Guid.NewGuid().ToString(),
-                AllowedCorsOrigins = new List<string> { "https://www.IdentityServer4.com" }
+                AllowedCorsOrigins = new List<string> { "https://www.identity4erver4.com" }
             }.ToEntity());
             context.Clients.Add(new Client
             {
                 ClientId = "2",
                 ClientName = "2",
-                AllowedCorsOrigins = new List<string> { "https://www.IdentityServer4.com", testCorsOrigin }
+                AllowedCorsOrigins = new List<string> { "https://www.identity4erver4.com", testCorsOrigin }
             }.ToEntity());
             context.SaveChanges();
         }
@@ -84,7 +84,7 @@ public class CorsPolicyServiceTests : IntegrationTest<CorsPolicyServiceTests, Co
             {
                 ClientId = Guid.NewGuid().ToString(),
                 ClientName = Guid.NewGuid().ToString(),
-                AllowedCorsOrigins = new List<string> { "https://www.IdentityServer4.com" }
+                AllowedCorsOrigins = new List<string> { "https://www.identity4erver4.com" }
             }.ToEntity());
             context.SaveChanges();
         }

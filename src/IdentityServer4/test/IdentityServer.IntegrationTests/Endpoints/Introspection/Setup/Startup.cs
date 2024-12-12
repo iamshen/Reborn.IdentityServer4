@@ -24,7 +24,7 @@ public class Startup
     {
         var builder = services.AddIdentityServer(options =>
         {
-            options.IssuerUri = "https://idsvr8";
+            options.IssuerUri = "https://idsrv4";
             options.Endpoints.EnableAuthorizeEndpoint = false;
         });
 

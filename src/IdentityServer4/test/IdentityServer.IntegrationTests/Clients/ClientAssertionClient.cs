@@ -32,7 +32,7 @@ namespace IdentityServer.IntegrationTests.Clients;
 
 public class ClientAssertionClient
 {
-    private const string TokenEndpoint = "https://idsvr8/connect/token";
+    private const string TokenEndpoint = "https://idsrv4/connect/token";
     private const string ClientId = "certificate_base64_valid";
 
     private readonly HttpClient _client;
@@ -221,7 +221,7 @@ public class ClientAssertionClient
 
         payload["iss"].ValueKind.Should().Be(JsonValueKind.String);
         payload["client_id"].ValueKind.Should().Be(JsonValueKind.String);
-        payload["iss"].ToString().Should().Be("https://idsvr8");
+        payload["iss"].ToString().Should().Be("https://idsrv4");
         payload["client_id"].ToString().Should().Be(ClientId);
 
 

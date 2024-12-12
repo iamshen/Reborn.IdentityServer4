@@ -78,7 +78,7 @@ public class ClientCredentialsClient
 
         payload.Count().Should().Be(8);
 
-        payload["iss"].ToString().Should().Be("https://idsvr8");
+        payload["iss"].ToString().Should().Be("https://idsrv4");
         payload["client_id"].ToString().Should().Be("client");
 
         payload["aud"].ToString().Should().Be("api");
@@ -112,7 +112,7 @@ public class ClientCredentialsClient
 
         payload.Count().Should().Be(8);
 
-        payload["iss"].ToString().Should().Be("https://idsvr8");
+        payload["iss"].ToString().Should().Be("https://idsrv4");
         payload["client_id"].ToString().Should().Be("client");
 
      
@@ -150,7 +150,7 @@ public class ClientCredentialsClient
         payload.Count().Should().Be(9);
 
 
-        payload["iss"].ToString().Should().Be("https://idsvr8");
+        payload["iss"].ToString().Should().Be("https://idsrv4");
         payload["client_id"].ToString().Should().Be("client.cnf");
 
         payload["aud"].ToString().Should().Be("api");
@@ -194,7 +194,7 @@ public class ClientCredentialsClient
 
         payload.Count().Should().Be(8);
 
-        payload["iss"].ToString().Should().Be("https://idsvr8");
+        payload["iss"].ToString().Should().Be("https://idsrv4");
         payload["client_id"].ToString().Should().Be("client");
 
         payload["aud"].ToString().Should().Be("api");
@@ -231,7 +231,7 @@ public class ClientCredentialsClient
 
 
 
-        payload["iss"].ToString().Should().Be("https://idsvr8");
+        payload["iss"].ToString().Should().Be("https://idsrv4");
         payload["client_id"].ToString().Should().Be("client");
 
 
@@ -294,7 +294,7 @@ public class ClientCredentialsClient
         var payload = GetPayload(response);
 
 
-        payload["iss"].ToString().Should().Be("https://idsvr8");
+        payload["iss"].ToString().Should().Be("https://idsrv4");
         payload["client_id"].ToString().Should().Be("client");
 
         payload["aud"].ToString().Should().Be("api");
@@ -322,7 +322,7 @@ public class ClientCredentialsClient
 
         var payload = GetPayload(response);
         
-        payload["iss"].ToString().Should().Be("https://idsvr8");
+        payload["iss"].ToString().Should().Be("https://idsrv4");
         payload["client_id"].ToString().Should().Be("client.no_secret");
 
         var scopes = payload["scope"].EnumerateArray();

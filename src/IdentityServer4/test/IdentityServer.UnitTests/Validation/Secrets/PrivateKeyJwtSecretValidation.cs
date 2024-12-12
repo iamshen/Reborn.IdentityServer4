@@ -131,10 +131,11 @@ namespace IdentityServer.UnitTests.Validation.Secrets
             var clientId = "certificate_base64_valid";
             var client = await _clients.FindEnabledClientByIdAsync(clientId);
 
+            var token = CreateToken(clientId);
             var secret = new ParsedSecret
             {
                 Id = clientId,
-                Credential = new JwtSecurityTokenHandler().WriteToken(CreateToken(clientId)),
+                Credential = $"{token.EncodedHeader}.{token.EncodedPayload}.{token.EncodedSignature}",
                 Type = IdentityServerConstants.ParsedSecretTypes.JwtBearer
             };
 
@@ -170,10 +171,11 @@ namespace IdentityServer.UnitTests.Validation.Secrets
             var clientId = "certificate_base64_invalid";
             var client = await _clients.FindEnabledClientByIdAsync(clientId);
 
+            var token = CreateToken(clientId);
             var secret = new ParsedSecret
             {
                 Id = clientId,
-                Credential = new JwtSecurityTokenHandler().WriteToken(CreateToken(clientId)),
+                Credential = $"{token.EncodedHeader}.{token.EncodedPayload}.{token.EncodedSignature}",
                 Type = IdentityServerConstants.ParsedSecretTypes.JwtBearer
             };
 
