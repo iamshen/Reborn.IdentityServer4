@@ -110,7 +110,9 @@ public static class SanitizerServiceExtensions
     {
         var decoded = Uri.UnescapeDataString(input?.ToString() ?? "");
         decoded.SanitizeForHtml();
+#pragma warning disable SYSLIB0013 // 类型或成员已过时
         var escaped = Uri.EscapeUriString(decoded);
+#pragma warning restore SYSLIB0013 // 类型或成员已过时
         return escaped;
     }
 

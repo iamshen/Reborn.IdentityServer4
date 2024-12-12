@@ -213,7 +213,9 @@ public class JsonSanitizer : SanitizerBase, IJsonSanitizer
 }
 public class UrlSanitizer : SanitizerBase, IUrlSanitizer
 {
+#pragma warning disable SYSLIB0013 // 类型或成员已过时
     public UrlSanitizer() : base(x => Uri.EscapeUriString(x?.ToString() ?? ""))
+#pragma warning restore SYSLIB0013 // 类型或成员已过时
     {
 
     }
@@ -227,7 +229,9 @@ public class CssSanitizer : SanitizerBase, ICssSanitizer
 }
 public class ScriptSanitizer : SanitizerBase, IScriptSanitizer
 {
+#pragma warning disable SYSLIB0013 // 类型或成员已过时
     public ScriptSanitizer() : base(x => Uri.EscapeUriString(x?.ToString() ?? ""))
+#pragma warning restore SYSLIB0013 // 类型或成员已过时
     {
 
     }
