@@ -12,7 +12,6 @@
  copies or substantial portions of the Software.
 */
 
-using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using FluentAssertions;
 using IdentityModel;
@@ -24,11 +23,6 @@ namespace IdentityServer.UnitTests.Validation
     public class IdentityTokenValidation
     {
         private const string Category = "Identity token validation";
-
-        static IdentityTokenValidation()
-        {
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-        }
 
         [Fact]
         [Trait("Category", Category)]

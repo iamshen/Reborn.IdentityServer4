@@ -20,10 +20,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Text;
 using Xunit;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace IdentityServer.IntegrationTests.Clients;
 
@@ -470,8 +470,10 @@ public class ExtensionGrantClient
 
         response.AccessToken.Should().Contain(".");
 
-        var jwt = new JwtSecurityToken(response.AccessToken);
-        jwt.Payload["client_id"].Should().Be("impersonated_client_id");
+        var handler = new JsonWebTokenHandler();
+        var jwt = handler.ReadJsonWebToken(response.AccessToken);
+        // Payload'dan client_id değerini kontrol et
+        jwt.Claims.First(c => c.Type == "client_id").Value.Should().Be("impersonated_client_id");
     }
 
     [Fact]

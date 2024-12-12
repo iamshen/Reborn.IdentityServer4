@@ -28,9 +28,12 @@ using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using IdentityServer4.Validation;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Xunit;
+using IdentityServer8.Validation;
+using static IdentityServer4.Events.TokenIssuedSuccessEvent;
 
 namespace IdentityServer.UnitTests.Validation.Secrets
 {
@@ -41,6 +44,7 @@ namespace IdentityServer.UnitTests.Validation.Secrets
 
         public PrivateKeyJwtSecretValidation()
         {
+            
             _validator = new PrivateKeyJwtSecretValidator(
                 new MockHttpContextAccessor(
                     new IdentityServerOptions()
@@ -54,28 +58,33 @@ namespace IdentityServer.UnitTests.Validation.Secrets
             _clients = new InMemoryClientStore(ClientValidationTestClients.Get());
         }
 
-        private JwtSecurityToken CreateToken(string clientId, DateTime? nowOverride = null)
+        private JsonWebToken CreateToken(string clientId, DateTime? nowOverride = null)
         {
             var certificate = TestCert.Load();
             var now = nowOverride ?? DateTime.UtcNow;
 
-            var token = new JwtSecurityToken(
-                    clientId,
-                    "https://idsrv3.com/connect/token",
-                    new List<Claim>()
-                    {
-                        new Claim("jti", Guid.NewGuid().ToString()),
-                        new Claim(JwtClaimTypes.Subject, clientId),
-                        new Claim(JwtClaimTypes.IssuedAt, new DateTimeOffset(now).ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)
-                    },
-                    now,
-                    now.AddMinutes(1),
-                    new SigningCredentials(
-                        new X509SecurityKey(certificate),
-                        SecurityAlgorithms.RsaSha256
-                    )
-                );
-            return token;
+            var tokenHandler = new JsonWebTokenHandler();
+            var claims = new Dictionary<string, object>
+            {
+                { "jti", Guid.NewGuid().ToString() },
+                { JwtClaimTypes.Subject, clientId },
+                { JwtClaimTypes.IssuedAt, new DateTimeOffset(now).ToUnixTimeSeconds() }
+            };
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Issuer = clientId,
+                Audience = "https://idsrv3.com/connect/token",
+                Claims = claims,
+                Expires = now.AddMinutes(1),
+                SigningCredentials = new SigningCredentials(
+                    new X509SecurityKey(certificate),
+                    SecurityAlgorithms.RsaSha256
+                )
+            };
+            // Token string olarak oluşturuluyor
+            var tokenString = tokenHandler.CreateToken(tokenDescriptor);
+            // String token'ı JsonWebToken nesnesine dönüştürüp döndür
+            return tokenHandler.ReadJsonWebToken(tokenString);
         }
 
         [Fact]
@@ -88,7 +97,7 @@ namespace IdentityServer.UnitTests.Validation.Secrets
             var secret = new ParsedSecret
             {
                 Id = clientId,
-                Credential = new JwtSecurityTokenHandler().WriteToken(token),
+                Credential = $"{token.EncodedHeader}.{token.EncodedPayload}.{token.EncodedSignature}",
                 Type = IdentityServerConstants.ParsedSecretTypes.JwtBearer
             };
 
@@ -103,10 +112,11 @@ namespace IdentityServer.UnitTests.Validation.Secrets
             var clientId = "certificate_invalid";
             var client = await _clients.FindEnabledClientByIdAsync(clientId);
 
+            var token = CreateToken(clientId);
             var secret = new ParsedSecret
             {
                 Id = clientId,
-                Credential = new JwtSecurityTokenHandler().WriteToken(CreateToken(clientId)),
+                Credential = $"{token.EncodedHeader}.{token.EncodedPayload}.{token.EncodedSignature}",
                 Type = IdentityServerConstants.ParsedSecretTypes.JwtBearer
             };
 
@@ -138,12 +148,12 @@ namespace IdentityServer.UnitTests.Validation.Secrets
         {
             var clientId = "certificate_base64_valid";
             var client = await _clients.FindEnabledClientByIdAsync(clientId);
-            var token = new JwtSecurityTokenHandler().WriteToken(CreateToken(clientId));
-            
+
+            var token = CreateToken(clientId);
             var secret = new ParsedSecret
             {
                 Id = clientId,
-                Credential = token,
+                Credential = $"{token.EncodedHeader}.{token.EncodedPayload}.{token.EncodedSignature}",
                 Type = IdentityServerConstants.ParsedSecretTypes.JwtBearer
             };
 
@@ -179,12 +189,26 @@ namespace IdentityServer.UnitTests.Validation.Secrets
             var client = await _clients.FindEnabledClientByIdAsync(clientId);
 
             var token = CreateToken(clientId);
-            token.Payload.Remove(JwtClaimTypes.Issuer);
-            token.Payload.Add(JwtClaimTypes.Issuer, "invalid");
+            // "iss" claim'ini manipüle et
+            var claims = token.Claims.ToList();
+            claims.RemoveAll(c => c.Type == JwtClaimTypes.Issuer);
+            claims.Add(new Claim(JwtClaimTypes.Issuer, "invalid"));
+
+            var modifiedToken = new JsonWebTokenHandler().CreateToken(new SecurityTokenDescriptor
+            {
+                Issuer = clientId,
+                Audience = "https://idsrv3.com/connect/token",
+                Claims = claims.ToDictionary(c => c.Type, c => (object) c.Value),
+                SigningCredentials = new SigningCredentials(
+                    new X509SecurityKey(TestCert.Load()),
+                    SecurityAlgorithms.RsaSha256
+                )
+            });
+
             var secret = new ParsedSecret
             {
                 Id = clientId,
-                Credential = new JwtSecurityTokenHandler().WriteToken(token),
+                Credential = modifiedToken,
                 Type = IdentityServerConstants.ParsedSecretTypes.JwtBearer
             };
 
@@ -200,12 +224,27 @@ namespace IdentityServer.UnitTests.Validation.Secrets
             var client = await _clients.FindEnabledClientByIdAsync(clientId);
 
             var token = CreateToken(clientId);
-            token.Payload.Remove(JwtClaimTypes.Subject);
-            token.Payload.Add(JwtClaimTypes.Subject, "invalid");
+
+            // "sub" claim'ini manipüle et
+            var claims = token.Claims.ToList();
+            claims.RemoveAll(c => c.Type == JwtClaimTypes.Subject);
+            claims.Add(new Claim(JwtClaimTypes.Subject, "invalid"));
+
+            var modifiedToken = new JsonWebTokenHandler().CreateToken(new SecurityTokenDescriptor
+            {
+                Issuer = clientId,
+                Audience = "https://idsrv3.com/connect/token",
+                Claims = claims.ToDictionary(c => c.Type, c => (object) c.Value),
+                SigningCredentials = new SigningCredentials(
+                    new X509SecurityKey(TestCert.Load()),
+                    SecurityAlgorithms.RsaSha256
+                )
+            });
+
             var secret = new ParsedSecret
             {
                 Id = clientId,
-                Credential = new JwtSecurityTokenHandler().WriteToken(token),
+                Credential = modifiedToken,
                 Type = IdentityServerConstants.ParsedSecretTypes.JwtBearer
             };
 
@@ -224,7 +263,7 @@ namespace IdentityServer.UnitTests.Validation.Secrets
             var secret = new ParsedSecret
             {
                 Id = clientId,
-                Credential = new JwtSecurityTokenHandler().WriteToken(token),
+                Credential = $"{token.EncodedHeader}.{token.EncodedPayload}.{token.EncodedSignature}",
                 Type = IdentityServerConstants.ParsedSecretTypes.JwtBearer
             };
 
@@ -239,13 +278,31 @@ namespace IdentityServer.UnitTests.Validation.Secrets
             var clientId = "certificate_valid";
             var client = await _clients.FindEnabledClientByIdAsync(clientId);
 
-            var token = CreateToken(clientId);
-            token.Header.Remove("alg");
-            token.Header.Add("alg", "none");
+            // Unsigned token için header ve claims oluştur
+            var header = new Dictionary<string, object>
+            {
+                { "alg", "none" }
+            };
+            var claims = new Dictionary<string, object>
+            {
+                { "jti", Guid.NewGuid().ToString() },
+                { JwtClaimTypes.Subject, clientId },
+                { JwtClaimTypes.Issuer, clientId },
+                { JwtClaimTypes.IssuedAt, new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds() }
+            };
+            // Header ve Claims JSON string'e dönüştürülüyor
+            var headerJson = System.Text.Json.JsonSerializer.Serialize(header);
+            var claimsJson = System.Text.Json.JsonSerializer.Serialize(claims);
+            // JSON string Base64Url formatına dönüştürülüyor
+            var encodedHeader = Base64Url.Encode(System.Text.Encoding.UTF8.GetBytes(headerJson));
+            var encodedClaims = Base64Url.Encode(System.Text.Encoding.UTF8.GetBytes(claimsJson));
+            // İmzasız JWT oluşturuluyor
+            var token = $"{encodedHeader}.{encodedClaims}.";
+
             var secret = new ParsedSecret
             {
                 Id = clientId,
-                Credential = new JwtSecurityTokenHandler().WriteToken(token),
+                Credential = token,
                 Type = IdentityServerConstants.ParsedSecretTypes.JwtBearer
             };
 

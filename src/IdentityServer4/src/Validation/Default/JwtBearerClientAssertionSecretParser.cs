@@ -12,6 +12,8 @@
  copies or substantial portions of the Software.
 */
 
+using Microsoft.IdentityModel.JsonWebTokens;
+
 namespace IdentityServer4.Validation;
 
 /// <summary>
@@ -106,7 +108,7 @@ public class JwtBearerClientAssertionSecretParser : ISecretParser
     {
         try
         {
-            var jwt = new JwtSecurityToken(token);
+            var jwt = new JsonWebToken(token);
             return jwt.Subject;
         }
         catch (Exception e)

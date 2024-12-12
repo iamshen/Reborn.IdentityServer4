@@ -12,6 +12,7 @@
  copies or substantial portions of the Software.
 */
 
+using System.IdentityModel.Tokens.Jwt;
 using FluentAssertions;
 using IdentityModel;
 using IdentityModel.Client;
@@ -20,11 +21,11 @@ using IdentityServer.IntegrationTests.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using Xunit;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 
 namespace IdentityServer.IntegrationTests.Clients;
@@ -248,24 +249,25 @@ public class ClientAssertionClient
         var certificate = TestCert.Load();
         var now = nowOverride ?? DateTime.UtcNow;
 
-        var token = new JwtSecurityToken(
-                clientId,
-                TokenEndpoint,
-                new List<Claim>()
-                {
-                    new Claim("jti", Guid.NewGuid().ToString()),
-                    new Claim(JwtClaimTypes.Subject, clientId),
-                    new Claim(JwtClaimTypes.IssuedAt, new DateTimeOffset(now).ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)
-                },
-                now,
-                now.AddMinutes(1),
-                new SigningCredentials(
-                    new X509SecurityKey(certificate),
-                    SecurityAlgorithms.RsaSha256
-                )
-            );
-
-        var tokenHandler = new JwtSecurityTokenHandler();
-        return tokenHandler.WriteToken(token);
+        var tokenHandler = new JsonWebTokenHandler();
+        var claims = new List<Claim>
+        {
+            new Claim("jti", Guid.NewGuid().ToString()),
+            new Claim(JwtClaimTypes.Subject, clientId),
+            new Claim(JwtClaimTypes.IssuedAt, new DateTimeOffset(now).ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)
+        };
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Issuer = clientId,
+            Audience = TokenEndpoint,
+            Claims = claims.ToDictionary(c => c.Type, c => (object) c.Value),
+            NotBefore = now,
+            Expires = now.AddMinutes(1),
+            SigningCredentials = new SigningCredentials(
+                new X509SecurityKey(certificate),
+                SecurityAlgorithms.RsaSha256
+            )
+        };
+        return tokenHandler.CreateToken(tokenDescriptor);
     }
 }

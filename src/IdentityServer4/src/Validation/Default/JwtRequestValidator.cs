@@ -12,6 +12,7 @@
  copies or substantial portions of the Software.
 */
 
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
 namespace IdentityServer4.Validation;
@@ -23,14 +24,11 @@ public class JwtRequestValidator
 {
     private readonly string _audienceUri;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    
+
     /// <summary>
     /// JWT handler
     /// </summary>
-    protected JwtSecurityTokenHandler Handler = new JwtSecurityTokenHandler
-    {
-        MapInboundClaims = false
-    };
+    protected JsonWebTokenHandler Handler = new JsonWebTokenHandler();
 
     /// <summary>
     /// The audience URI to use
@@ -108,10 +106,10 @@ public class JwtRequestValidator
             return fail;
         }
 
-        JwtSecurityToken jwtSecurityToken;
+        JsonWebToken jwtToken;
         try
         {
-            jwtSecurityToken = await ValidateJwtAsync(jwtTokenString, trustedKeys, client);
+            jwtToken = await ValidateJwtAsync(jwtTokenString, trustedKeys, client);
         }
         catch (Exception e)
         {
@@ -119,14 +117,14 @@ public class JwtRequestValidator
             return fail;
         }
 
-        if (jwtSecurityToken.Payload.ContainsKey(OidcConstants.AuthorizeRequest.Request) ||
-            jwtSecurityToken.Payload.ContainsKey(OidcConstants.AuthorizeRequest.RequestUri))
+        // Check for prohibited claims
+        if (jwtToken.Claims.Any(c => c.Type == OidcConstants.AuthorizeRequest.Request || c.Type == OidcConstants.AuthorizeRequest.RequestUri))
         {
             Logger.LogError("JWT payload must not contain request or request_uri");
             return fail;
         }
 
-        var payload = await ProcessPayloadAsync(jwtSecurityToken);
+        var payload = await ProcessPayloadAsync(jwtToken);
 
         var result = new JwtRequestValidationResult
         {
@@ -155,7 +153,7 @@ public class JwtRequestValidator
     /// <param name="keys">The keys</param>
     /// <param name="client">The client</param>
     /// <returns></returns>
-    protected virtual Task<JwtSecurityToken> ValidateJwtAsync(string jwtTokenString, IEnumerable<SecurityKey> keys, Client client)
+    protected virtual async Task<JsonWebToken> ValidateJwtAsync(string jwtTokenString, IEnumerable<SecurityKey> keys, Client client)
     {
         var tokenValidationParameters = new TokenValidationParameters
         {
@@ -177,9 +175,13 @@ public class JwtRequestValidator
             tokenValidationParameters.ValidTypes = new[] { JwtClaimTypes.JwtTypes.AuthorizationRequest };
         }
 
-        Handler.ValidateToken(jwtTokenString, tokenValidationParameters, out var token);
-        
-        return Task.FromResult((JwtSecurityToken)token);
+        var validationResult = await Handler.ValidateTokenAsync(jwtTokenString, tokenValidationParameters);
+        if (!validationResult.IsValid)
+        {
+            throw new SecurityTokenValidationException(validationResult.Exception?.Message ?? "JWT validation failed.");
+        }
+        var jwt = Handler.ReadJsonWebToken(jwtTokenString);
+        return jwt;
     }
 
     /// <summary>
@@ -187,27 +189,37 @@ public class JwtRequestValidator
     /// </summary>
     /// <param name="token">The JWT token</param>
     /// <returns></returns>
-    protected virtual Task<Dictionary<string, string>> ProcessPayloadAsync(JwtSecurityToken token)
+    protected virtual Task<Dictionary<string, string>> ProcessPayloadAsync(JsonWebToken token)
     {
         // filter JWT validation values
         var payload = new Dictionary<string, string>();
-        foreach (var key in token.Payload.Keys)
-        {
-            if (!Constants.Filters.JwtRequestClaimTypesFilter.Contains(key))
-            {
-                var value = token.Payload[key];
 
-                switch (value)
+        foreach (var claim in token.Claims)
+        {
+            if (!Constants.Filters.JwtRequestClaimTypesFilter.Contains(claim.Type))
+            {
+                var value = claim.Value;
+                try
                 {
-                    case string s:
-                        payload.Add(key, s);
-                        break;
-                    case JObject jobj:
-                        payload.Add(key, jobj.ToString(Formatting.None));
-                        break;
-                    case JArray jarr:
-                        payload.Add(key, jarr.ToString(Formatting.None));
-                        break;
+                    // Try to parse the value as JSON
+                    var parsedJson = JToken.Parse(value);
+                    switch (parsedJson)
+                    {
+                        case JObject jobj:
+                            payload.Add(claim.Type, jobj.ToString(Formatting.None));
+                            break;
+                        case JArray jarr:
+                            payload.Add(claim.Type, jarr.ToString(Formatting.None));
+                            break;
+                        default:
+                            payload.Add(claim.Type, value);
+                            break;
+                    }
+                }
+                catch (JsonReaderException)
+                {
+                    // If parsing fails, treat as a string
+                    payload.Add(claim.Type, value);
                 }
             }
         }

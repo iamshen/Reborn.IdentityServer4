@@ -12,6 +12,8 @@
  copies or substantial portions of the Software.
 */
 
+using IdentityServer8.Validation;
+
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>

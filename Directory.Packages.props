@@ -28,6 +28,12 @@
         <PackageVersion Include="IdentityModel.AspNetCore.AccessTokenValidation" Version="1.0.0-preview.3" />
         <PackageVersion Include="IdentityModel.AspNetCore.OAuth2Introspection" Version="6.2.0" />
         <PackageVersion Include="IdentityServer4.KeyManagement" Version="2.1.0" />
+
+        <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
+        <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.3.0" />
+        <PackageVersion Include="Microsoft.IdentityModel.Logging" Version="8.3.0" />
+        <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.3.0" />
+        <PackageVersion Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.2.0" />
        
         <!--Microsoft.AspNetCore-->
         <PackageVersion Include="Microsoft.AspNetCore.Authentication.Certificate" Version="$(AspnetVersion)" />
@@ -79,10 +85,7 @@
         <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
         <PackageVersion Include="Microsoft.Extensions.Options" Version="$(MicrosoftExtensionsVersion)" />
 
-       
-        <PackageVersion Include="Microsoft.IdentityModel.Logging" Version="8.2.1" />
-        <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.2.1" />
-        <PackageVersion Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.2.0" />
+        
 
         <!--misc-->
         <PackageVersion Include="AutoMapper" Version="13.0.1 " />
@@ -109,15 +112,14 @@
         <PackageVersion Include="Serilog.Sinks.Seq" Version="6.0.0" />
 
         <PackageVersion Include="System.Configuration.ConfigurationManager" Version="$(AspnetVersion)" />
-        <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.2.1" />
         <PackageVersion Include="System.Reactive" Version="6.0.0" />
         <PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
         <PackageVersion Include="System.ServiceModel.Primitives" Version="$(AspnetVersion)" />
         <PackageVersion Include="WireMock.Net" Version="1.5.39" />
 
         <!--tests -->
-        <PackageVersion Include="xunit" Version="2.9.0" />
-        <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.4">
+        <PackageVersion Include="xunit" Version="2.9.2" />
+        <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageVersion>

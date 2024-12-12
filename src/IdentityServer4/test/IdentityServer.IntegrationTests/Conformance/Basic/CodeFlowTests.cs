@@ -25,6 +25,7 @@ using IdentityServer.IntegrationTests.Common;
 using IdentityServer4.Configuration;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Xunit;
 
 namespace IdentityServer.IntegrationTests.Conformance.Basic;
@@ -116,7 +117,7 @@ public class CodeFlowTests
         tokenResult.ExpiresIn.Should().BeGreaterThan(0);
         tokenResult.IdentityToken.Should().NotBeNull();
 
-        var token = new JwtSecurityToken(tokenResult.IdentityToken);
+        var token = new JsonWebToken(tokenResult.IdentityToken);
         
         var s_hash = token.Claims.FirstOrDefault(c => c.Type == "s_hash");
         s_hash.Should().BeNull();
@@ -165,7 +166,7 @@ public class CodeFlowTests
         tokenResult.ExpiresIn.Should().BeGreaterThan(0);
         tokenResult.IdentityToken.Should().NotBeNull();
 
-        var token = new JwtSecurityToken(tokenResult.IdentityToken);
+        var token = new JsonWebToken(tokenResult.IdentityToken);
         
         var s_hash = token.Claims.FirstOrDefault(c => c.Type == "s_hash");
         s_hash.Should().NotBeNull();

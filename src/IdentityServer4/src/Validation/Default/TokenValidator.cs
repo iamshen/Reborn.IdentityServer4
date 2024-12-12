@@ -1,17 +1,18 @@
 /*
  Copyright (c) 2024 Iamshen . All rights reserved.
 
- Copyright (c) 2024 HigginsSoft, Alexander Higgins - https://github.com/alexhiggins732/ 
+ Copyright (c) 2024 HigginsSoft, Alexander Higgins - https://github.com/alexhiggins732/
 
  Copyright (c) 2018, Brock Allen & Dominick Baier. All rights reserved.
 
- Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information. 
- Source code and license this software can be found 
+ Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+ Source code and license this software can be found
 
  The above copyright notice and this permission notice shall be included in all
  copies or substantial portions of the Software.
 */
 
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
 namespace IdentityServer4.Validation;
@@ -239,7 +240,7 @@ internal class TokenValidator : ITokenValidator
 
     private async Task<TokenValidationResult> ValidateJwtAsync(string jwt, IEnumerable<SecurityKeyInfo> validationKeys, bool validateLifetime = true, string audience = null)
     {
-        var handler = new JwtSecurityTokenHandler();
+        var handler = new JsonWebTokenHandler();
         handler.InboundClaimTypeMap.Clear();
 
         var parameters = new TokenValidationParameters
@@ -260,15 +261,17 @@ internal class TokenValidator : ITokenValidator
 
         try
         {
-            var id = handler.ValidateToken(jwt, parameters, out var securityToken);
-            var jwtSecurityToken = securityToken as JwtSecurityToken;
+            var result = await handler.ValidateTokenAsync(jwt, parameters);
+            var securityToken = result.SecurityToken;
+            var id = result.ClaimsIdentity;
+            var jwtSecurityToken = securityToken as JsonWebToken;
 
             // if no audience is specified, we make at least sure that it is an access token
             if (audience.IsMissing())
             {
                 if (_options.AccessTokenJwtType.IsPresent())
                 {
-                    var type = jwtSecurityToken.Header.Typ;
+                    var type = jwtSecurityToken.Typ;
                     if (!string.Equals(type, _options.AccessTokenJwtType))
                     {
                         return new TokenValidationResult
@@ -407,7 +410,7 @@ internal class TokenValidator : ITokenValidator
     {
         try
         {
-            var jwt = new JwtSecurityToken(token);
+            var jwt = new JsonWebToken(token);
             var clientId = jwt.Audiences.FirstOrDefault();
 
             return clientId;
